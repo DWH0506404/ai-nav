@@ -4,205 +4,594 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>AI工具导航</title>
+<title>AI UNIVERSE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
 }
 
 body{
-    background:#0a0a0a;
+    font-family:'Poppins',sans-serif;
+
+    background:
+    linear-gradient(180deg,#050816 0%,#07111f 45%,#000 100%);
+
     color:white;
+
     padding:20px;
+    padding-bottom:120px;
+
+    overflow-x:hidden;
 }
 
-/* 顶部 */
+body::before{
+    content:'';
+
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    top:0;
+    left:0;
+
+    background:
+    radial-gradient(circle at 20% 30%,rgba(0,229,255,.15),transparent 25%),
+    radial-gradient(circle at 80% 20%,rgba(122,92,255,.12),transparent 25%),
+    radial-gradient(circle at 50% 80%,rgba(0,255,140,.10),transparent 25%);
+
+    z-index:-1;
+}
+
 .header{
     text-align:center;
-    margin-bottom:30px;
-}
-
-.logo{
-    font-size:32px;
-    font-weight:bold;
-    background:linear-gradient(90deg,#00f0ff,#8a2be2);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.desc{
-    color:#aaa;
-    margin-top:8px;
-    font-size:14px;
-}
-
-/* 搜索框 */
-.search-box{
     margin-top:20px;
 }
 
-.search-box input{
+.logo{
+    font-size:52px;
+    font-weight:800;
+
+    background:linear-gradient(90deg,#00e5ff,#7a5cff);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:
+    0 0 10px rgba(0,229,255,.6),
+    0 0 30px rgba(122,92,255,.5);
+}
+
+.subtitle{
+    margin-top:12px;
+    color:#aaa;
+    font-size:15px;
+}
+
+.banner{
+    margin-top:30px;
+
+    background:
+    linear-gradient(90deg,#00e5ff,#7a5cff);
+
+    padding:16px;
+
+    border-radius:22px;
+
+    text-align:center;
+
+    font-weight:700;
+
+    box-shadow:
+    0 0 25px rgba(0,229,255,.35);
+}
+
+.search{
+    margin-top:25px;
+}
+
+.search input{
     width:100%;
-    padding:14px;
+
+    padding:18px;
+
     border:none;
-    border-radius:14px;
-    background:#161616;
-    color:white;
-    font-size:16px;
+
     outline:none;
-    box-shadow:0 0 10px rgba(0,255,255,0.2);
+
+    border-radius:22px;
+
+    background:rgba(20,20,30,.72);
+
+    color:white;
+
+    font-size:16px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 20px rgba(0,255,255,.08),
+    inset 0 0 20px rgba(255,255,255,.03);
 }
 
-/* 分类标题 */
-.section-title{
-    margin:30px 0 15px;
-    font-size:20px;
-    font-weight:bold;
-    color:#00f0ff;
+.category{
+    margin-top:45px;
 }
 
-/* 卡片布局 */
+.category h2{
+    font-size:30px;
+
+    margin-bottom:20px;
+
+    color:#00e5ff;
+
+    text-shadow:
+    0 0 10px rgba(0,229,255,.45);
+}
+
 .grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
 }
 
-/* 卡片 */
 .card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:18px;
-    padding:18px;
     text-decoration:none;
+
     color:white;
-    transition:0.3s;
-    backdrop-filter:blur(10px);
-    box-shadow:0 0 20px rgba(0,255,255,0.05);
+
+    background:rgba(20,20,30,.72);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:26px;
+
+    padding:24px 18px;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 20px rgba(0,255,255,.08),
+    inset 0 0 20px rgba(255,255,255,.03);
+
+    transition:.35s;
 }
 
 .card:hover{
-    transform:translateY(-5px);
-    border-color:#00f0ff;
-    box-shadow:0 0 20px rgba(0,255,255,0.3);
+    transform:
+    translateY(-8px)
+    scale(1.02);
+
+    box-shadow:
+    0 0 30px rgba(0,255,255,.25),
+    0 0 60px rgba(122,92,255,.15);
 }
 
 .icon{
-    font-size:32px;
-    margin-bottom:10px;
+    font-size:40px;
 }
 
-.name{
-    font-size:18px;
-    font-weight:bold;
+.card h3{
+    margin-top:16px;
+    font-size:24px;
 }
 
-.info{
-    margin-top:8px;
+.card p{
+    margin-top:10px;
+
     color:#aaa;
+
     font-size:13px;
+
     line-height:1.5;
 }
 
-/* 底部 */
-.footer{
-    margin-top:40px;
-    text-align:center;
-    color:#666;
+.bottom-nav{
+    position:fixed;
+
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    background:rgba(10,10,20,.92);
+
+    backdrop-filter:blur(12px);
+
+    border-top:
+    1px solid rgba(255,255,255,.08);
+
+    display:flex;
+
+    justify-content:space-around;
+
+    padding:16px 0;
+}
+
+.bottom-nav a{
+    color:white;
+
+    text-decoration:none;
+
     font-size:13px;
 }
+
+.top-tools{
+    margin-top:25px;
+
+    display:flex;
+
+    gap:12px;
+
+    overflow:auto;
+
+    padding-bottom:10px;
+}
+
+.top-tools::-webkit-scrollbar{
+    display:none;
+}
+
+.tag{
+    white-space:nowrap;
+
+    padding:10px 16px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:14px;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- 顶部 -->
 <div class="header">
-    <div class="logo">AI TOOL NAV</div>
-    <div class="desc">全网热门AI工具导航站</div>
 
-    <div class="search-box">
-        <input type="text" placeholder="搜索AI工具..." />
-    </div>
+<div class="logo">
+AI UNIVERSE
+</div>
+
+<div class="subtitle">
+全网最全AI工具导航平台
+</div>
+
+</div>
+
+<div class="banner">
+🚀 收录全球热门AI软件 / AI工具 / AI编程 / AI视频
+</div>
+
+<div class="search">
+<input type="text" placeholder="搜索 AI 工具...">
+</div>
+
+<div class="top-tools">
+
+<div class="tag">🔥 ChatGPT</div>
+<div class="tag">🧠 Claude</div>
+<div class="tag">💻 Cursor</div>
+<div class="tag">🎨 Midjourney</div>
+<div class="tag">🎬 Runway</div>
+<div class="tag">🎵 Suno</div>
+<div class="tag">⚡ DeepSeek</div>
+
 </div>
 
 <!-- AI聊天 -->
-<div class="section-title">AI聊天</div>
+
+<div class="category">
+<h2>AI聊天</h2>
 
 <div class="grid">
 
 <a class="card" href="https://chatgpt.com" target="_blank">
-    <div class="icon">🤖</div>
-    <div class="name">ChatGPT</div>
-    <div class="info">OpenAI 官方AI助手</div>
+<div class="icon">🤖</div>
+<h3>ChatGPT</h3>
+<p>OpenAI 官方AI助手</p>
+</a>
+
+<a class="card" href="https://claude.ai" target="_blank">
+<div class="icon">🧠</div>
+<h3>Claude</h3>
+<p>Anthropic AI助手</p>
+</a>
+
+<a class="card" href="https://gemini.google.com" target="_blank">
+<div class="icon">✨</div>
+<h3>Gemini</h3>
+<p>Google AI助手</p>
+</a>
+
+<a class="card" href="https://grok.x.ai" target="_blank">
+<div class="icon">⚡</div>
+<h3>Grok</h3>
+<p>X 平台AI助手</p>
 </a>
 
 <a class="card" href="https://kimi.moonshot.cn" target="_blank">
-    <div class="icon">🌙</div>
-    <div class="name">Kimi</div>
-    <div class="info">超长文本AI助手</div>
-</a>
-
-<a class="card" href="https://www.doubao.com" target="_blank">
-    <div class="icon">🧠</div>
-    <div class="name">豆包</div>
-    <div class="info">字节跳动AI助手</div>
+<div class="icon">🌙</div>
+<h3>Kimi</h3>
+<p>超长文本AI助手</p>
 </a>
 
 <a class="card" href="https://www.deepseek.com" target="_blank">
-    <div class="icon">🚀</div>
-    <div class="name">DeepSeek</div>
-    <div class="info">国产热门AI模型</div>
+<div class="icon">🚀</div>
+<h3>DeepSeek</h3>
+<p>国产热门AI模型</p>
 </a>
 
+</div>
+</div>
+
+<!-- AI编程 -->
+
+<div class="category">
+<h2>AI编程</h2>
+
+<div class="grid">
+
+<a class="card" href="https://cursor.com" target="_blank">
+<div class="icon">💻</div>
+<h3>Cursor</h3>
+<p>热门AI代码编辑器</p>
+</a>
+
+<a class="card" href="https://openai.com/codex" target="_blank">
+<div class="icon">🧩</div>
+<h3>Codex</h3>
+<p>OpenAI 编程模型</p>
+</a>
+
+<a class="card" href="https://bolt.new" target="_blank">
+<div class="icon">⚙️</div>
+<h3>Bolt</h3>
+<p>AI网页生成工具</p>
+</a>
+
+<a class="card" href="https://v0.dev" target="_blank">
+<div class="icon">🪄</div>
+<h3>v0</h3>
+<p>Vercel AI生成UI</p>
+</a>
+
+<a class="card" href="https://lovable.dev" target="_blank">
+<div class="icon">💜</div>
+<h3>Lovable</h3>
+<p>AI应用生成平台</p>
+</a>
+
+<a class="card" href="https://replit.com" target="_blank">
+<div class="icon">🔥</div>
+<h3>Replit</h3>
+<p>在线AI编程平台</p>
+</a>
+
+</div>
 </div>
 
 <!-- AI绘画 -->
-<div class="section-title">AI绘画</div>
+
+<div class="category">
+<h2>AI绘画</h2>
 
 <div class="grid">
 
-<a class="card" href="#">
-    <div class="icon">🎨</div>
-    <div class="name">Midjourney</div>
-    <div class="info">AI图片生成工具</div>
+<a class="card" href="https://www.midjourney.com" target="_blank">
+<div class="icon">🎨</div>
+<h3>Midjourney</h3>
+<p>AI图片生成平台</p>
 </a>
 
-<a class="card" href="#">
-    <div class="icon">🖼️</div>
-    <div class="name">Stable Diffusion</div>
-    <div class="info">开源AI绘画模型</div>
+<a class="card" href="https://stability.ai" target="_blank">
+<div class="icon">🖼️</div>
+<h3>Stable Diffusion</h3>
+<p>开源AI绘画模型</p>
 </a>
 
+<a class="card" href="https://ideogram.ai" target="_blank">
+<div class="icon">🌈</div>
+<h3>Ideogram</h3>
+<p>文字海报AI生成</p>
+</a>
+
+<a class="card" href="https://leonardo.ai" target="_blank">
+<div class="icon">🪄</div>
+<h3>Leonardo AI</h3>
+<p>高质量AI绘画平台</p>
+</a>
+
+<a class="card" href="https://www.canva.com" target="_blank">
+<div class="icon">🎭</div>
+<h3>Canva AI</h3>
+<p>AI设计平台</p>
+</a>
+
+<a class="card" href="https://firefly.adobe.com" target="_blank">
+<div class="icon">🔥</div>
+<h3>Firefly</h3>
+<p>Adobe AI绘画工具</p>
+</a>
+
+</div>
 </div>
 
 <!-- AI视频 -->
-<div class="section-title">AI视频</div>
+
+<div class="category">
+<h2>AI视频</h2>
 
 <div class="grid">
 
-<a class="card" href="#">
-    <div class="icon">🎬</div>
-    <div class="name">Runway</div>
-    <div class="info">AI视频生成平台</div>
+<a class="card" href="https://runwayml.com" target="_blank">
+<div class="icon">🎬</div>
+<h3>Runway</h3>
+<p>AI视频生成平台</p>
 </a>
 
-<a class="card" href="#">
-    <div class="icon">📹</div>
-    <div class="name">Pika</div>
-    <div class="info">AI动画视频工具</div>
+<a class="card" href="https://pika.art" target="_blank">
+<div class="icon">📹</div>
+<h3>Pika</h3>
+<p>AI动画视频工具</p>
+</a>
+
+<a class="card" href="https://klingai.com" target="_blank">
+<div class="icon">🎞️</div>
+<h3>Kling</h3>
+<p>快手AI视频模型</p>
+</a>
+
+<a class="card" href="https://openai.com/sora" target="_blank">
+<div class="icon">🌌</div>
+<h3>Sora</h3>
+<p>OpenAI AI视频模型</p>
+</a>
+
+<a class="card" href="https://www.heygen.com" target="_blank">
+<div class="icon">🧑</div>
+<h3>HeyGen</h3>
+<p>AI数字人视频</p>
+</a>
+
+<a class="card" href="https://www.synthesia.io" target="_blank">
+<div class="icon">🎤</div>
+<h3>Synthesia</h3>
+<p>AI口播视频平台</p>
 </a>
 
 </div>
-
-<!-- 底部 -->
-<div class="footer">
-    © 2026 AI TOOL NAV
 </div>
+
+<!-- AI音乐 -->
+
+<div class="category">
+<h2>AI音乐</h2>
+
+<div class="grid">
+
+<a class="card" href="https://suno.com" target="_blank">
+<div class="icon">🎵</div>
+<h3>Suno</h3>
+<p>AI音乐生成平台</p>
+</a>
+
+<a class="card" href="https://udio.com" target="_blank">
+<div class="icon">🎧</div>
+<h3>Udio</h3>
+<p>AI歌曲生成工具</p>
+</a>
+
+<a class="card" href="https://elevenlabs.io" target="_blank">
+<div class="icon">🎙️</div>
+<h3>ElevenLabs</h3>
+<p>AI语音生成平台</p>
+</a>
+
+<a class="card" href="https://murf.ai" target="_blank">
+<div class="icon">🔊</div>
+<h3>Murf AI</h3>
+<p>AI配音工具</p>
+</a>
+
+</div>
+</div>
+
+<!-- AI办公 -->
+
+<div class="category">
+<h2>AI办公</h2>
+
+<div class="grid">
+
+<a class="card" href="https://www.notion.so/product/ai" target="_blank">
+<div class="icon">📄</div>
+<h3>Notion AI</h3>
+<p>AI办公助手</p>
+</a>
+
+<a class="card" href="https://gamma.app" target="_blank">
+<div class="icon">📊</div>
+<h3>Gamma</h3>
+<p>AI PPT生成平台</p>
+</a>
+
+<a class="card" href="https://tome.app" target="_blank">
+<div class="icon">📚</div>
+<h3>Tome</h3>
+<p>AI演示文稿工具</p>
+</a>
+
+<a class="card" href="https://napkin.ai" target="_blank">
+<div class="icon">📝</div>
+<h3>Napkin AI</h3>
+<p>AI思维整理工具</p>
+</a>
+
+</div>
+</div>
+
+<div class="bottom-nav">
+
+<a href="#">🏠 首页</a>
+<a href="#">🔥 热门</a>
+<a href="#">⭐ 收藏</a>
+<a href="#">👤 我的</a>
+
+</div>
+
+<script>
+
+const searchInput=document.querySelector('input');
+
+searchInput.addEventListener('keyup',()=>{
+
+const value=searchInput.value.toLowerCase();
+
+document.querySelectorAll('.card').forEach(card=>{
+
+const text=card.innerText.toLowerCase();
+
+card.style.display=
+text.includes(value)
+? 'block'
+: 'none';
+
+});
+
+});
+
+document.querySelectorAll('.card').forEach(card=>{
+
+card.addEventListener('click',()=>{
+
+card.style.transform='scale(0.96)';
+
+setTimeout(()=>{
+card.style.transform='';
+},120);
+
+});
+
+});
+
+</script>
 
 </body>
 </html>
