@@ -1,130 +1,208 @@
-<h2>安全工具</h2>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<table>
+<title>AI工具导航</title>
 
-<tr>
-    <td>1</td>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    <td>
-        <img src="https://www.deepseek.com/favicon.ico"
-        style="height:20px;width:20px;">
-    </td>
+body{
+    background:#0a0a0a;
+    color:white;
+    padding:20px;
+}
 
-    <td>
-        <a href="https://www.deepseek.com/" target="_blank">
-            DeepSeek
-        </a>
-    </td>
+/* 顶部 */
+.header{
+    text-align:center;
+    margin-bottom:30px;
+}
 
-    <td>
-        国产AI大模型，安全稳定
-    </td>
+.logo{
+    font-size:32px;
+    font-weight:bold;
+    background:linear-gradient(90deg,#00f0ff,#8a2be2);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-    <td>
-        <a href="https://www.deepseek.com/" target="_blank">
-            🔗
-        </a>
-    </td>
-</tr>
+.desc{
+    color:#aaa;
+    margin-top:8px;
+    font-size:14px;
+}
 
-<tr>
-    <td>2</td>
+/* 搜索框 */
+.search-box{
+    margin-top:20px;
+}
 
-    <td>
-        <img src="https://chatgpt.com/favicon.ico"
-        style="height:20px;width:20px;">
-    </td>
+.search-box input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#161616;
+    color:white;
+    font-size:16px;
+    outline:none;
+    box-shadow:0 0 10px rgba(0,255,255,0.2);
+}
 
-    <td>
-        <a href="https://chatgpt.com/" target="_blank">
-            ChatGPT
-        </a>
-    </td>
+/* 分类标题 */
+.section-title{
+    margin:30px 0 15px;
+    font-size:20px;
+    font-weight:bold;
+    color:#00f0ff;
+}
 
-    <td>
-        官方AI助手
-    </td>
+/* 卡片布局 */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
 
-    <td>
-        <a href="https://chatgpt.com/" target="_blank">
-            🔗
-        </a>
-    </td>
-</tr>
+/* 卡片 */
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:18px;
+    padding:18px;
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 20px rgba(0,255,255,0.05);
+}
 
-<tr>
-    <td>3</td>
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#00f0ff;
+    box-shadow:0 0 20px rgba(0,255,255,0.3);
+}
 
-    <td>
-        <img src="https://kimi.moonshot.cn/favicon.ico"
-        style="height:20px;width:20px;">
-    </td>
+.icon{
+    font-size:32px;
+    margin-bottom:10px;
+}
 
-    <td>
-        <a href="https://kimi.moonshot.cn/" target="_blank">
-            Kimi
-        </a>
-    </td>
+.name{
+    font-size:18px;
+    font-weight:bold;
+}
 
-    <td>
-        长文本AI助手
-    </td>
+.info{
+    margin-top:8px;
+    color:#aaa;
+    font-size:13px;
+    line-height:1.5;
+}
 
-    <td>
-        <a href="https://kimi.moonshot.cn/" target="_blank">
-            🔗
-        </a>
-    </td>
-</tr>
+/* 底部 */
+.footer{
+    margin-top:40px;
+    text-align:center;
+    color:#666;
+    font-size:13px;
+}
+</style>
+</head>
 
-<tr>
-    <td>4</td>
+<body>
 
-    <td>
-        <img src="https://www.doubao.com/favicon.ico"
-        style="height:20px;width:20px;">
-    </td>
+<!-- 顶部 -->
+<div class="header">
+    <div class="logo">AI TOOL NAV</div>
+    <div class="desc">全网热门AI工具导航站</div>
 
-    <td>
-        <a href="https://www.doubao.com/" target="_blank">
-            豆包
-        </a>
-    </td>
+    <div class="search-box">
+        <input type="text" placeholder="搜索AI工具..." />
+    </div>
+</div>
 
-    <td>
-        字节跳动AI助手
-    </td>
+<!-- AI聊天 -->
+<div class="section-title">AI聊天</div>
 
-    <td>
-        <a href="https://www.doubao.com/" target="_blank">
-            🔗
-        </a>
-    </td>
-</tr>
+<div class="grid">
 
-<tr>
-    <td>5</td>
+<a class="card" href="https://chatgpt.com" target="_blank">
+    <div class="icon">🤖</div>
+    <div class="name">ChatGPT</div>
+    <div class="info">OpenAI 官方AI助手</div>
+</a>
 
-    <td>
-        <img src="https://www.deepseek.com/favicon.ico"
-        style="height:20px;width:20px;">
-    </td>
+<a class="card" href="https://kimi.moonshot.cn" target="_blank">
+    <div class="icon">🌙</div>
+    <div class="name">Kimi</div>
+    <div class="info">超长文本AI助手</div>
+</a>
 
-    <td>
-        <a href="https://yuanbao.tencent.com/" target="_blank">
-            元宝
-        </a>
-    </td>
+<a class="card" href="https://www.doubao.com" target="_blank">
+    <div class="icon">🧠</div>
+    <div class="name">豆包</div>
+    <div class="info">字节跳动AI助手</div>
+</a>
 
-    <td>
-        腾讯AI助手
-    </td>
+<a class="card" href="https://www.deepseek.com" target="_blank">
+    <div class="icon">🚀</div>
+    <div class="name">DeepSeek</div>
+    <div class="info">国产热门AI模型</div>
+</a>
 
-    <td>
-        <a href="https://yuanbao.tencent.com/" target="_blank">
-            🔗
-        </a>
-    </td>
-</tr>
+</div>
 
-</table>
+<!-- AI绘画 -->
+<div class="section-title">AI绘画</div>
+
+<div class="grid">
+
+<a class="card" href="#">
+    <div class="icon">🎨</div>
+    <div class="name">Midjourney</div>
+    <div class="info">AI图片生成工具</div>
+</a>
+
+<a class="card" href="#">
+    <div class="icon">🖼️</div>
+    <div class="name">Stable Diffusion</div>
+    <div class="info">开源AI绘画模型</div>
+</a>
+
+</div>
+
+<!-- AI视频 -->
+<div class="section-title">AI视频</div>
+
+<div class="grid">
+
+<a class="card" href="#">
+    <div class="icon">🎬</div>
+    <div class="name">Runway</div>
+    <div class="info">AI视频生成平台</div>
+</a>
+
+<a class="card" href="#">
+    <div class="icon">📹</div>
+    <div class="name">Pika</div>
+    <div class="info">AI动画视频工具</div>
+</a>
+
+</div>
+
+<!-- 底部 -->
+<div class="footer">
+    © 2026 AI TOOL NAV
+</div>
+
+</body>
+</html>
