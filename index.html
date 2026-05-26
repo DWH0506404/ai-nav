@@ -1,522 +1,561 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI UNIVERSE</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
 
-:root{
-  --cyan:#00e5ff;
-  --purple:#7a5cff;
-  --bg:#050816;
-  --card-bg:rgba(12,14,30,0.95);
-  --border:rgba(255,255,255,0.09);
-  --text-muted:#8a9acc;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-  font-family:'Poppins',sans-serif;
-  background:#050816;
-  color:white;
-  overflow-x:hidden;
-  min-height:100vh;
+font-family:'Poppins',sans-serif;
+background:#050816;
+color:white;
+overflow-x:hidden;
 }
 
-/* ── Starfield background ── */
-.stars-wrap{
-  position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 0%,#182848 0%,#050816 55%,#000 100%);
-}
-.stars-wrap::before,.stars-wrap::after{
-  content:'';position:absolute;inset:0;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%,rgba(255,255,255,.55) 0%,transparent 0%),
-    radial-gradient(1px 1px at 30% 60%,rgba(255,255,255,.4) 0%,transparent 0%),
-    radial-gradient(1px 1px at 50% 10%,rgba(255,255,255,.6) 0%,transparent 0%),
-    radial-gradient(1px 1px at 70% 40%,rgba(255,255,255,.35) 0%,transparent 0%),
-    radial-gradient(1px 1px at 85% 70%,rgba(255,255,255,.5) 0%,transparent 0%),
-    radial-gradient(1px 1px at 20% 85%,rgba(255,255,255,.3) 0%,transparent 0%),
-    radial-gradient(1px 1px at 60% 55%,rgba(255,255,255,.45) 0%,transparent 0%),
-    radial-gradient(1.5px 1.5px at 90% 15%,rgba(255,255,255,.6) 0%,transparent 0%),
-    radial-gradient(1px 1px at 40% 90%,rgba(255,255,255,.35) 0%,transparent 0%),
-    radial-gradient(1px 1px at 75% 80%,rgba(255,255,255,.4) 0%,transparent 0%);
-}
-.stars-wrap::after{
-  background-image:
-    radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,.3) 0%,transparent 0%),
-    radial-gradient(1px 1px at 55% 25%,rgba(255,255,255,.5) 0%,transparent 0%),
-    radial-gradient(1px 1px at 80% 50%,rgba(255,255,255,.35) 0%,transparent 0%),
-    radial-gradient(1.5px 1.5px at 5% 75%,rgba(255,255,255,.55) 0%,transparent 0%),
-    radial-gradient(1px 1px at 95% 30%,rgba(255,255,255,.4) 0%,transparent 0%),
-    radial-gradient(1px 1px at 45% 70%,rgba(255,255,255,.3) 0%,transparent 0%),
-    radial-gradient(1px 1px at 25% 30%,rgba(255,255,255,.45) 0%,transparent 0%),
-    radial-gradient(1px 1px at 65% 85%,rgba(255,255,255,.35) 0%,transparent 0%),
-    radial-gradient(1.5px 1.5px at 35% 5%,rgba(255,255,255,.6) 0%,transparent 0%);
-  opacity:.6;
+:root{
+--cyan:#00e5ff;
+--purple:#7a5cff;
 }
 
-/* Top glow orb */
-.glow-top{
-  position:fixed;top:-80px;left:50%;transform:translateX(-50%);
-  width:500px;height:260px;
-  background:radial-gradient(ellipse,rgba(0,200,255,.18) 0%,transparent 70%);
-  pointer-events:none;z-index:1;
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#13244d 0%,#050816 55%,#000 100%);
+z-index:-2;
 }
 
-/* ── Layout ── */
+body::after{
+content:'';
+position:fixed;
+width:500px;
+height:300px;
+background:radial-gradient(circle,rgba(0,229,255,.2),transparent 70%);
+top:-120px;
+left:50%;
+transform:translateX(-50%);
+z-index:-1;
+}
+
 .container{
-  position:relative;z-index:2;
-  width:100%;max-width:100%;margin:0 auto;
-  padding:0 16px 100px;
+max-width:480px;
+margin:auto;
+padding:20px 16px 100px;
 }
 
-/* ── Hero ── */
 .hero{
-  text-align:center;
-  padding:44px 0 0;
+text-align:center;
+padding-top:20px;
 }
 
 .hero h1{
-  font-size:52px;font-weight:900;letter-spacing:-1px;line-height:1.05;
-  background:linear-gradient(90deg,#00e5ff 0%,#a78bff 50%,#00e5ff 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:shimmer 4s linear infinite;
-  filter:drop-shadow(0 0 22px rgba(0,229,255,.45));
-}
-@keyframes shimmer{to{background-position:200% center;}}
-
-.hero-sub{
-  margin-top:10px;font-size:16px;color:#8a9acc;letter-spacing:.3px;
+font-size:48px;
+font-weight:900;
+background:linear-gradient(90deg,#00e5ff,#9b7bff,#00e5ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-size:200%;
+animation:shine 5s linear infinite;
 }
 
-/* ── Banner ── */
+@keyframes shine{
+to{
+background-position:200%;
+}
+}
+
+.hero p{
+color:#7d8ab7;
+margin-top:8px;
+font-size:15px;
+}
+
 .banner{
-  margin-top:22px;
-  padding:16px 20px;
-  border-radius:18px;
-  background:linear-gradient(90deg,#00b4d8,#7a5cff);
-  font-size:16px;font-weight:600;line-height:1.5;
-  box-shadow:0 0 28px rgba(0,180,216,.35),0 4px 20px rgba(0,0,0,.4);
-  text-shadow:0 1px 4px rgba(0,0,0,.3);
+margin-top:22px;
+padding:15px;
+border-radius:18px;
+background:linear-gradient(90deg,#00b4d8,#7a5cff);
+font-weight:600;
+line-height:1.6;
 }
 
-/* ── Search ── */
-.search-box{
-  margin-top:18px;position:relative;
+.search{
+margin-top:18px;
 }
-.search-box svg{
-  position:absolute;left:18px;top:50%;transform:translateY(-50%);
-  opacity:.45;
-}
-.search-box input{
-  width:100%;padding:16px 18px 16px 50px;
-  border:1.5px solid rgba(255,255,255,.08);border-radius:16px;
-  background:rgba(13,16,35,.9);color:white;font-size:16px;
-  font-family:'Poppins',sans-serif;outline:none;
-  box-shadow:0 0 0 0 rgba(0,229,255,0),inset 0 1px 0 rgba(255,255,255,.04);
-  transition:border-color .25s,box-shadow .25s;
-}
-.search-box input:focus{
-  border-color:rgba(0,229,255,.4);
-  box-shadow:0 0 18px rgba(0,229,255,.12);
-}
-.search-box input::placeholder{color:#4e5d88;font-size:15px;}
 
-/* ── Quick pills ── */
+.search input{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#11162b;
+color:white;
+font-size:16px;
+border:1px solid rgba(255,255,255,.08);
+}
+
 .quick{
-  margin-top:16px;display:flex;gap:10px;
-  overflow-x:auto;padding-bottom:4px;scrollbar-width:none;
+display:flex;
+gap:10px;
+overflow:auto;
+margin-top:16px;
+padding-bottom:5px;
 }
-.quick::-webkit-scrollbar{display:none;}
-.quick a{
-  flex:none;padding:9px 18px;border-radius:999px;
-  text-decoration:none;color:rgba(255,255,255,.85);
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  font-size:13.5px;font-weight:500;
-  white-space:nowrap;
-  transition:background .2s,border-color .2s;
-}
-.quick a:hover{background:rgba(0,229,255,.12);border-color:rgba(0,229,255,.3);}
 
-/* ── Section heading ── */
-.section{margin-top:36px;}
+.quick::-webkit-scrollbar{
+display:none;
+}
+
+.quick button{
+border:none;
+background:rgba(255,255,255,.08);
+color:white;
+padding:10px 16px;
+border-radius:999px;
+white-space:nowrap;
+font-size:13px;
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+.section{
+margin-top:34px;
+}
+
 .section-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
 }
+
 .section-header h2{
-  font-size:20px;font-weight:700;
-  display:flex;align-items:center;gap:8px;
-  color:white;
+font-size:22px;
+font-weight:700;
 }
-.section-header h2::before{
-  content:'';display:block;
-  width:4px;height:22px;border-radius:4px;
-  background:linear-gradient(180deg,var(--cyan),var(--purple));
-  box-shadow:0 0 10px rgba(0,229,255,.5);
-}
-.section-header .more{
-  font-size:13px;color:#5a6a99;text-decoration:none;
-  display:flex;align-items:center;gap:3px;
-  transition:color .2s;
-}
-.section-header .more:hover{color:var(--cyan);}
 
-/* ── Grid ── */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
 }
-.grid-3{grid-template-columns:repeat(3,1fr);}
 
-/* ── App Card ── */
 .card{
-  text-decoration:none;color:white;
-  background:rgba(11,13,28,.92);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:20px;
-  padding:14px 8px 12px;
-  display:flex;flex-direction:column;align-items:center;text-align:center;
-  gap:7px;
-  transition:transform .25s,box-shadow .25s,border-color .25s;
-  backdrop-filter:blur(12px);
+background:rgba(13,15,32,.95);
+border-radius:20px;
+padding:14px 8px;
+text-decoration:none;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+gap:7px;
+position:relative;
+border:1px solid rgba(255,255,255,.06);
+transition:.25s;
 }
+
 .card:hover{
-  transform:translateY(-4px) scale(1.03);
-  border-color:rgba(0,229,255,.22);
-  box-shadow:0 8px 28px rgba(0,229,255,.15);
+transform:translateY(-4px);
+box-shadow:0 8px 20px rgba(0,229,255,.15);
+border-color:rgba(0,229,255,.25);
 }
 
-.app-icon{
-  width:58px;height:58px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;
-  position:relative;overflow:hidden;
+.icon{
+width:58px;
+height:58px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:700;
 }
-/* per-app icon colors */
-.icon-chatgpt{background:linear-gradient(135deg,#10a37f,#1a7f5e);}
-.icon-claude{background:linear-gradient(135deg,#cc7b4c,#a3521e);}
-.icon-deepseek{background:linear-gradient(135deg,#1565c0,#0d47a1);}
-.icon-kimi{background:linear-gradient(135deg,#1a1a2e,#2d2d4a);border:1px solid rgba(255,255,255,.15);}
-.icon-gemini{background:linear-gradient(135deg,#1a73e8,#0d47a1);}
-.icon-grok{background:linear-gradient(135deg,#111,#222);border:1px solid rgba(255,255,255,.15);}
-.icon-cursor{background:linear-gradient(135deg,#1a1a2e,#252540);}
-.icon-copilot{background:linear-gradient(135deg,#111,#1a1a1a);}
-.icon-replit{background:linear-gradient(135deg,#f26207,#e05500);}
-.icon-v0{background:linear-gradient(135deg,#111,#1c1c1c);}
-.icon-midjourney{background:linear-gradient(135deg,#1a1a2e,#0d0d1a);}
-.icon-stable{background:linear-gradient(135deg,#1a237e,#0d1b6e);}
-.icon-canva{background:linear-gradient(135deg,#00c4cc,#0097a7);}
-.icon-leonardo{background:linear-gradient(135deg,#1a1a2e,#2a1a4e);}
-.icon-runway{background:linear-gradient(135deg,#00c853,#007e33);}
-.icon-pika{background:linear-gradient(135deg,#111,#1a1a2e);}
-.icon-capcut{background:linear-gradient(135deg,#111,#222);}
-.icon-synthesia{background:linear-gradient(135deg,#0288d1,#01579b);}
-.icon-suno{background:linear-gradient(135deg,#7b1fa2,#4a148c);}
-.icon-udio{background:linear-gradient(135deg,#c62828,#b71c1c);}
-.icon-soundraw{background:linear-gradient(135deg,#00695c,#004d40);}
 
-/* SVG icon images using CSS */
-.app-icon img{width:36px;height:36px;object-fit:contain;border-radius:6px;}
+.chatgpt{background:linear-gradient(135deg,#10a37f,#1a7f5e);}
+.claude{background:linear-gradient(135deg,#cc7b4c,#a3521e);}
+.deepseek{background:linear-gradient(135deg,#1565c0,#0d47a1);}
+.kimi{background:linear-gradient(135deg,#1a1a2e,#333);}
+.gemini{background:linear-gradient(135deg,#1a73e8,#0d47a1);}
+.grok{background:linear-gradient(135deg,#111,#222);}
+.cursor{background:linear-gradient(135deg,#1a1a2e,#252540);}
+.midjourney{background:linear-gradient(135deg,#1a1a2e,#0d0d1a);}
 
 .card-name{
-  font-size:12.5px;font-weight:600;color:white;
-  line-height:1.2;
+font-size:13px;
+font-weight:600;
 }
+
 .card-desc{
-  font-size:10.5px;color:#5a6a99;
-  line-height:1.3;
+font-size:10px;
+color:#7788b4;
+line-height:1.4;
 }
 
-/* ── Bottom Nav ── */
+.fav-btn{
+position:absolute;
+top:8px;
+right:8px;
+font-size:14px;
+cursor:pointer;
+}
+
+.profile-box{
+background:rgba(255,255,255,.05);
+border-radius:20px;
+padding:20px;
+line-height:2;
+border:1px solid rgba(255,255,255,.08);
+}
+
 .bottom-nav{
-  position:fixed;bottom:0;left:0;width:100%;
-  background:rgba(5,8,22,.96);
-  backdrop-filter:blur(20px);
-  border-top:1px solid rgba(255,255,255,.07);
-  display:flex;justify-content:space-around;
-  padding:12px 0 calc(12px + env(safe-area-inset-bottom));
-  z-index:999;
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:rgba(5,8,22,.97);
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+border-top:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
 }
-.bottom-nav a{
-  text-decoration:none;color:#4e5d88;
-  font-size:11px;text-align:center;
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  transition:color .2s;
-  min-width:52px;
-}
-.bottom-nav a svg{transition:filter .2s;}
-.bottom-nav a.active{color:var(--cyan);}
-.bottom-nav a.active svg{filter:drop-shadow(0 0 6px rgba(0,229,255,.6));}
-.bottom-nav a:hover{color:var(--cyan);}
 
-/* Scrollbar */
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
+.bottom-nav button{
+background:none;
+border:none;
+color:#6070a0;
+font-size:12px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+}
+
+.bottom-nav button.active{
+color:var(--cyan);
+}
+
+.bottom-nav svg{
+width:22px;
+height:22px;
+fill:currentColor;
+}
+
 </style>
 </head>
 <body>
 
-<div class="stars-wrap"></div>
-<div class="glow-top"></div>
-
 <div class="container">
 
-  <!-- Hero -->
-  <div class="hero">
-    <h1>AI UNIVERSE</h1>
-    <p class="hero-sub">全网最全AI工具导航平台</p>
-  </div>
+<div class="hero">
+<h1>AI UNIVERSE</h1>
+<p>全网最全AI工具导航平台</p>
+</div>
 
-  <!-- Banner -->
-  <div class="banner">
-    🚀 收录全球热门AI软件 / AI工具 / AI编程 / AI视频
-  </div>
+<div class="banner">
+🚀 收录全球热门 AI工具 / AI编程 / AI绘画 / AI视频
+</div>
 
-  <!-- Search -->
-  <div class="search-box">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </svg>
-    <input type="text" placeholder="搜索 AI 工具...">
-  </div>
+<div class="search">
+<input id="searchInput" placeholder="搜索 AI 工具...">
+</div>
 
-  <!-- Quick Pills -->
-  <div class="quick">
-    <a href="#">🔥 ChatGPT</a>
-    <a href="#">🧠 Claude</a>
-    <a href="#">💻 Cursor</a>
-    <a href="#">🎨 Midjourney</a>
-    <a href="#">🚀 DeepSeek</a>
-  </div>
+<div class="quick">
+<button>🔥 ChatGPT</button>
+<button>🧠 Claude</button>
+<button>💻 Cursor</button>
+<button>🎨 Midjourney</button>
+</div>
 
-  <!-- AI聊天 -->
-  <div class="section">
-    <div class="section-header">
-      <h2>AI聊天</h2>
-      <a href="#" class="more">更多 ›</a>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://chat.openai.com" target="_blank">
-        <div class="app-icon icon-chatgpt">
-          <svg width="32" height="32" viewBox="0 0 41 41" fill="white"><path d="M37.532 16.87a9.963 9.963 0 0 0-.856-8.184 10.078 10.078 0 0 0-10.855-4.835A9.964 9.964 0 0 0 18.306.5a10.079 10.079 0 0 0-9.614 6.977 9.967 9.967 0 0 0-6.664 4.834 10.08 10.08 0 0 0 1.24 11.817 9.965 9.965 0 0 0 .856 8.185 10.079 10.079 0 0 0 10.855 4.835 9.965 9.965 0 0 0 7.516 3.35 10.078 10.078 0 0 0 9.617-6.981 9.967 9.967 0 0 0 6.663-4.834 10.079 10.079 0 0 0-1.243-11.813zM22.498 37.886a7.474 7.474 0 0 1-4.799-1.735c.061-.033.168-.091.237-.134l7.964-4.6a1.294 1.294 0 0 0 .655-1.134V19.054l3.366 1.944a.12.12 0 0 1 .066.092v9.299a7.505 7.505 0 0 1-7.49 7.496zM6.392 31.006a7.471 7.471 0 0 1-.894-5.023c.06.036.162.099.237.141l7.964 4.6a1.297 1.297 0 0 0 1.308 0l9.724-5.614v3.888a.12.12 0 0 1-.048.103l-8.051 4.649a7.504 7.504 0 0 1-10.24-2.744zM4.297 13.62A7.469 7.469 0 0 1 8.2 10.333c0 .068-.004.19-.004.274v9.201a1.294 1.294 0 0 0 .654 1.132l9.723 5.614-3.366 1.944a.12.12 0 0 1-.114.012L7.044 23.86a7.504 7.504 0 0 1-2.747-10.24zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 0 1 .114-.012l8.048 4.648a7.498 7.498 0 0 1-1.158 13.528v-9.476a1.293 1.293 0 0 0-.647-1.13zm3.35-5.043c-.059-.037-.162-.099-.236-.141l-7.965-4.6a1.298 1.298 0 0 0-1.308 0l-9.723 5.614v-3.888a.12.12 0 0 1 .048-.103l8.05-4.645a7.497 7.497 0 0 1 11.135 7.763zm-21.063 6.929l-3.367-1.944a.12.12 0 0 1-.065-.092v-9.299a7.497 7.497 0 0 1 12.293-5.756 6.94 6.94 0 0 0-.236.134l-7.965 4.6a1.294 1.294 0 0 0-.654 1.132l-.006 11.225zm1.829-3.943l4.33-2.501 4.332 2.497v4.997l-4.331 2.5-4.331-2.5V18z"/></svg>
-        </div>
-        <span class="card-name">ChatGPT</span>
-        <span class="card-desc">OpenAI 官方AI助手</span>
-      </a>
-      <a class="card" href="https://claude.ai" target="_blank">
-        <div class="app-icon icon-claude">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="white"><text y="34" font-size="32" font-weight="bold" font-family="serif">A</text></svg>
-        </div>
-        <span class="card-name">Claude</span>
-        <span class="card-desc">Anthropic AI助手</span>
-      </a>
-      <a class="card" href="https://www.deepseek.com" target="_blank">
-        <div class="app-icon icon-deepseek">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="white"><circle cx="12" cy="16" r="7" fill="none" stroke="white" stroke-width="2"/><circle cx="22" cy="12" r="4" fill="white" opacity=".8"/><path d="M16 9 Q22 5 26 10" stroke="white" stroke-width="1.5" fill="none"/></svg>
-        </div>
-        <span class="card-name">DeepSeek</span>
-        <span class="card-desc">国产热门AI模型</span>
-      </a>
-      <a class="card" href="https://kimi.moonshot.cn" target="_blank">
-        <div class="app-icon icon-kimi">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><text x="2" y="22" font-size="20" font-weight="800" fill="white" font-family="monospace">K</text><text x="16" y="15" font-size="11" font-weight="700" fill="#00e5ff" font-family="monospace">i</text></svg>
-        </div>
-        <span class="card-name">Kimi</span>
-        <span class="card-desc">超长文本AI助手</span>
-      </a>
-      <a class="card" href="https://gemini.google.com" target="_blank">
-        <div class="app-icon icon-gemini">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="white"><path d="M15 3 L18 13 L28 15 L18 17 L15 27 L12 17 L2 15 L12 13 Z" fill="white"/></svg>
-        </div>
-        <span class="card-name">Gemini</span>
-        <span class="card-desc">Google AI助手</span>
-      </a>
-      <a class="card" href="https://grok.x.ai" target="_blank">
-        <div class="app-icon icon-grok">
-          <svg width="28" height="28" viewBox="0 0 300 300" fill="white"><path d="M41.9 32.2L196 218.5 41.3 268.5 89.8 268.5 218.1 229.4 258.1 268.5 258.1 268.5 258.1 268.5 103.6 81.7 258.7 32.2 210.2 32.2 82 71.2 42.2 32.2Z"/></svg>
-        </div>
-        <span class="card-name">Grok</span>
-        <span class="card-desc">X 平台AI助手</span>
-      </a>
-    </div>
-  </div>
+<!-- 首页 -->
+<div class="page active" id="homePage">
 
-  <!-- AI编程 -->
-  <div class="section">
-    <div class="section-header">
-      <h2>AI编程</h2>
-      <a href="#" class="more">更多 ›</a>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://cursor.com" target="_blank">
-        <div class="app-icon icon-cursor">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><polygon points="5,3 25,15 5,27 5,19 16,15 5,11" fill="white" opacity=".9"/></svg>
-        </div>
-        <span class="card-name">Cursor</span>
-        <span class="card-desc">AI 编程神器</span>
-      </a>
-      <a class="card" href="https://github.com/features/copilot" target="_blank">
-        <div class="app-icon icon-copilot">
-          <svg width="30" height="30" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4a4 4 0 0 1 4 4c0 1.48-.804 2.773-2 3.464V14h1a3 3 0 1 1 0 6h-1v1.536A4 4 0 1 1 12 20h1v-1a3 3 0 1 1 0-6h1v-.536A4 4 0 0 1 16 6z" opacity=".6"/><circle cx="16" cy="16" r="5" fill="white" opacity=".85"/></svg>
-        </div>
-        <span class="card-name">Copilot</span>
-        <span class="card-desc">GitHub AI编程助手</span>
-      </a>
-      <a class="card" href="https://replit.com" target="_blank">
-        <div class="app-icon icon-replit">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><rect x="2" y="4" width="10" height="8" rx="2"/><rect x="2" y="14" width="10" height="8" rx="2" opacity=".7"/><rect x="14" y="9" width="12" height="10" rx="2" opacity=".85"/></svg>
-        </div>
-        <span class="card-name">Replit</span>
-        <span class="card-desc">在线AI开发平台</span>
-      </a>
-      <a class="card" href="https://v0.dev" target="_blank">
-        <div class="app-icon icon-v0">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="white"><text x="2" y="22" font-size="18" font-weight="900" font-family="'Poppins',monospace" fill="white">v0</text></svg>
-        </div>
-        <span class="card-name">v0</span>
-        <span class="card-desc">AI网页生成工具</span>
-      </a>
-    </div>
-  </div>
+<div class="section">
 
-  <!-- AI绘画 -->
-  <div class="section">
-    <div class="section-header">
-      <h2>AI绘画</h2>
-      <a href="#" class="more">更多 ›</a>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://www.midjourney.com" target="_blank">
-        <div class="app-icon icon-midjourney">
-          <svg width="30" height="30" viewBox="0 0 32 32" fill="white"><path d="M16 3 L3 26 H11 L16 17 L21 26 H29 Z" opacity=".9"/></svg>
-        </div>
-        <span class="card-name">Midjourney</span>
-        <span class="card-desc">AI图片生成工具</span>
-      </a>
-      <a class="card" href="https://stability.ai" target="_blank">
-        <div class="app-icon icon-stable">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="white"><circle cx="15" cy="15" r="11" fill="none" stroke="white" stroke-width="2"/><circle cx="15" cy="15" r="6" fill="white" opacity=".6"/><circle cx="15" cy="15" r="2" fill="white"/></svg>
-        </div>
-        <span class="card-name">Stable Diffusion</span>
-        <span class="card-desc">开源AI绘画模型</span>
-      </a>
-      <a class="card" href="https://www.canva.com" target="_blank">
-        <div class="app-icon icon-canva">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="white"><text x="3" y="22" font-size="20" font-weight="800" font-family="serif" fill="white">C</text></svg>
-        </div>
-        <span class="card-name">Canva AI</span>
-        <span class="card-desc">AI设计神器</span>
-      </a>
-      <a class="card" href="https://leonardo.ai" target="_blank">
-        <div class="app-icon icon-leonardo">
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="white"><path d="M15 3 Q20 8 25 15 Q20 22 15 27 Q10 22 5 15 Q10 8 15 3Z" fill="none" stroke="white" stroke-width="1.5" opacity=".7"/><path d="M15 7 Q18 12 21 15 Q18 18 15 23 Q12 18 9 15 Q12 12 15 7Z" fill="white" opacity=".8"/></svg>
-        </div>
-        <span class="card-name">Leonardo AI</span>
-        <span class="card-desc">AI艺术创作平台</span>
-      </a>
-    </div>
-  </div>
+<div class="section-header">
+<h2>AI聊天</h2>
+</div>
 
-  <!-- AI视频 -->
-  <div class="section">
-    <div class="section-header">
-      <h2>AI视频</h2>
-      <a href="#" class="more">更多 ›</a>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://runwayml.com" target="_blank">
-        <div class="app-icon icon-runway">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><rect x="2" y="8" width="16" height="12" rx="3"/><path d="M20 11 L26 14 L20 17Z"/></svg>
-        </div>
-        <span class="card-name">Runway</span>
-        <span class="card-desc">AI视频生成平台</span>
-      </a>
-      <a class="card" href="https://pika.art" target="_blank">
-        <div class="app-icon icon-pika">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><circle cx="14" cy="14" r="11" fill="none" stroke="white" stroke-width="2"/><path d="M11 9 L21 14 L11 19Z" fill="white"/></svg>
-        </div>
-        <span class="card-name">Pika</span>
-        <span class="card-desc">AI动画视频生成</span>
-      </a>
-      <a class="card" href="https://www.capcut.com" target="_blank">
-        <div class="app-icon icon-capcut">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><path d="M14 4 L24 14 L14 24 L4 14Z" fill="none" stroke="white" stroke-width="2"/><path d="M9 14 L19 14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M14 9 L14 19" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
-        </div>
-        <span class="card-name">CapCut AI</span>
-        <span class="card-desc">AI剪辑工具</span>
-      </a>
-      <a class="card" href="https://www.synthesia.io" target="_blank">
-        <div class="app-icon icon-synthesia">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><circle cx="14" cy="10" r="5"/><path d="M5 24 Q5 18 14 18 Q23 18 23 24" stroke="white" stroke-width="2" fill="none"/></svg>
-        </div>
-        <span class="card-name">Synthesia</span>
-        <span class="card-desc">AI数字人视频</span>
-      </a>
-    </div>
-  </div>
+<div class="grid" id="toolGrid">
 
-  <!-- AI音乐 -->
-  <div class="section">
-    <div class="section-header">
-      <h2>AI音乐</h2>
-      <a href="#" class="more">更多 ›</a>
-    </div>
-    <div class="grid grid-3">
-      <a class="card" href="https://suno.com" target="_blank">
-        <div class="app-icon icon-suno">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><path d="M8 20 L8 10 L20 8 L20 18" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="7" cy="21" r="3"/><circle cx="19" cy="19" r="3"/></svg>
-        </div>
-        <span class="card-name">Suno</span>
-        <span class="card-desc">AI音乐生成平台</span>
-      </a>
-      <a class="card" href="https://www.udio.com" target="_blank">
-        <div class="app-icon icon-udio">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="white"><path d="M14 4 L14 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M8 8 L8 20" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><path d="M20 10 L20 20" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><path d="M4 24 L24 24" stroke="white" stroke-width="1.5" opacity=".4"/></svg>
-        </div>
-        <span class="card-name">Udio</span>
-        <span class="card-desc">AI歌曲创作工具</span>
-      </a>
-      <a class="card" href="https://soundraw.io" target="_blank">
-        <div class="app-icon icon-soundraw">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 14 Q8 8 12 14 Q16 20 20 14 Q24 8 28 14" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
-        </div>
-        <span class="card-name">Soundraw</span>
-        <span class="card-desc">AI背景音乐生成</span>
-      </a>
-    </div>
-  </div>
+<a class="card" data-name="chatgpt" href="https://chat.openai.com" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon chatgpt">◎</div>
+<div class="card-name">ChatGPT</div>
+<div class="card-desc">OpenAI 官方AI助手</div>
+</a>
+
+<a class="card" data-name="claude" href="https://claude.ai" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon claude">A</div>
+<div class="card-name">Claude</div>
+<div class="card-desc">Anthropic AI助手</div>
+</a>
+
+<a class="card" data-name="deepseek" href="https://www.deepseek.com" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon deepseek">◉</div>
+<div class="card-name">DeepSeek</div>
+<div class="card-desc">国产热门AI模型</div>
+</a>
+
+<a class="card" data-name="kimi" href="https://kimi.moonshot.cn" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon kimi">K</div>
+<div class="card-name">Kimi</div>
+<div class="card-desc">超长文本AI助手</div>
+</a>
+
+<a class="card" data-name="gemini" href="https://gemini.google.com" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon gemini">✦</div>
+<div class="card-name">Gemini</div>
+<div class="card-desc">Google AI助手</div>
+</a>
+
+<a class="card" data-name="grok" href="https://grok.x.ai" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon grok">𝕏</div>
+<div class="card-name">Grok</div>
+<div class="card-desc">X 平台AI助手</div>
+</a>
+
+<a class="card" data-name="cursor" href="https://cursor.com" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon cursor">›</div>
+<div class="card-name">Cursor</div>
+<div class="card-desc">AI 编程神器</div>
+</a>
+
+<a class="card" data-name="midjourney" href="https://midjourney.com" target="_blank">
+<div class="fav-btn">⭐</div>
+<div class="icon midjourney">△</div>
+<div class="card-name">Midjourney</div>
+<div class="card-desc">AI 绘画神器</div>
+</a>
+
+</div>
+</div>
 
 </div>
 
-<!-- Bottom Nav -->
+<!-- 热门 -->
+<div class="page" id="hotPage">
+
+<div class="section">
+
+<div class="section-header">
+<h2>热门工具</h2>
+</div>
+
+<div class="grid" id="hotGrid"></div>
+
+</div>
+
+</div>
+
+<!-- 收藏 -->
+<div class="page" id="favPage">
+
+<div class="section">
+
+<div class="section-header">
+<h2>我的收藏</h2>
+</div>
+
+<div class="grid" id="favGrid"></div>
+
+</div>
+
+</div>
+
+<!-- 我的 -->
+<div class="page" id="profilePage">
+
+<div class="section">
+
+<div class="section-header">
+<h2>我的页面</h2>
+</div>
+
+<div class="profile-box">
+<div>👤 AI Universe 用户</div>
+<div>⭐ 收藏数量：<span id="favCount">0</span></div>
+<div>🚀 当前版本：1.0</div>
+<div>📱 移动端 AI 导航平台</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <div class="bottom-nav">
-  <a href="#" class="active">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    首页
-  </a>
-  <a href="#">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    热门
-  </a>
-  <a href="#">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    收藏
-  </a>
-  <a href="#">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    我的
-  </a>
+
+<button class="active" onclick="switchPage('homePage',this)">
+<svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+首页
+</button>
+
+<button onclick="switchPage('hotPage',this)">
+<svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+热门
+</button>
+
+<button onclick="switchPage('favPage',this)">
+<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+收藏
+</button>
+
+<button onclick="switchPage('profilePage',this)">
+<svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+我的
+</button>
+
 </div>
+
+<script>
+
+const pages=document.querySelectorAll('.page');
+
+function switchPage(id,btn){
+
+pages.forEach(page=>{
+page.classList.remove('active');
+});
+
+document.getElementById(id).classList.add('active');
+
+document.querySelectorAll('.bottom-nav button')
+.forEach(b=>b.classList.remove('active'));
+
+btn.classList.add('active');
+
+}
+
+const searchInput=document.getElementById('searchInput');
+
+searchInput.addEventListener('input',()=>{
+
+const value=searchInput.value.toLowerCase();
+
+document.querySelectorAll('.card').forEach(card=>{
+
+const name=card.dataset.name.toLowerCase();
+
+if(name.includes(value)){
+card.style.display='flex';
+}else{
+card.style.display='none';
+}
+
+});
+
+});
+
+const favBtns=document.querySelectorAll('.fav-btn');
+
+favBtns.forEach(btn=>{
+
+btn.addEventListener('click',(e)=>{
+
+e.preventDefault();
+
+const card=btn.parentElement;
+
+const name=card.dataset.name;
+
+let favorites=
+JSON.parse(localStorage.getItem('favorites')) || [];
+
+if(favorites.includes(name)){
+
+favorites=favorites.filter(item=>item!==name);
+
+btn.innerHTML='⭐';
+
+}else{
+
+favorites.push(name);
+
+btn.innerHTML='💙';
+
+}
+
+localStorage.setItem(
+'favorites',
+JSON.stringify(favorites)
+);
+
+loadFavorites();
+
+});
+
+});
+
+function loadFavorites(){
+
+const favorites=
+JSON.parse(localStorage.getItem('favorites')) || [];
+
+const favGrid=document.getElementById('favGrid');
+
+const favCount=document.getElementById('favCount');
+
+favGrid.innerHTML='';
+
+favCount.innerText=favorites.length;
+
+document.querySelectorAll('.card').forEach(card=>{
+
+const name=card.dataset.name;
+
+const favBtn=card.querySelector('.fav-btn');
+
+if(favorites.includes(name)){
+
+favBtn.innerHTML='💙';
+
+favGrid.innerHTML+=card.outerHTML;
+
+}else{
+
+favBtn.innerHTML='⭐';
+
+}
+
+});
+
+document.getElementById('hotGrid').innerHTML=
+document.getElementById('toolGrid').innerHTML;
+
+}
+
+loadFavorites();
+
+</script>
 
 </body>
 </html>
